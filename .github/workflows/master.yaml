@@ -1,0 +1,24 @@
+name: Tic-Tac-Toe
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  play_game:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x' # Specify the Python version you want to use
+        
+      - name: Install dependencies
+        run: pip install -r requirements.txt # Assuming you have a requirements.txt file with required dependencies
+      
+      - name: Play Tic-Tac-Toe
+        run: python play_game.py # Assuming you have a Python script named play_game.py that contains the Tic-Tac-Toe game logic
