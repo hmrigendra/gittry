@@ -1,0 +1,31 @@
+name: Changes to pulled file
+
+on: 
+  push:
+    branches: ['master']
+
+jobs:
+  changingpulledfile:
+    runs-on: ubuntu-latest
+
+    steps:
+    
+    - name: Checkout repository
+      uses: actions/checkout@v2.3.2
+      
+    - name: Modify the specific files using scriptys
+      uses: jaywcjlove/github-action-modify-file-content@main
+      with:
+        path: README.md
+        body: "overwrite file content {{date:YYYY-MM-DD HH:mm:ss}}",
+        overwrite: 'true'
+    - name: check for changes
+      run: git status
+    - name: stage changed files
+      run: git add .
+    - name: commit changed files
+      run: git commit -m "Auto updating file.txt"
+    - name: fetch from master
+      run: git fetch origin master
+    - name: push code to master
+      run: git push origin HEAD:master
